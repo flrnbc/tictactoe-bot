@@ -1,6 +1,6 @@
 # TICTACTOE-BOT
 
-The aim here is to apply methods of BetaGo/Zero (see [Deep Learning and the Game of Go][https://github.com/maxpumperla/deep_learning_and_the_game_of_go]
+The aim here is to apply methods of BetaGo/Zero (see [Deep Learning and the Game of Go](https://github.com/maxpumperla/deep_learning_and_the_game_of_go)
 which is essentially an open-source implementation of Deepmind's AlphaGo/Zero) to generalized tictactoe games. The advantage of these games is that
 the rules are straightforward without any exceptions. One challenge is that there are essentially no avaiable recored games so that we have to rely
 on self-play/reinforcement learning for the deep learning bots.
