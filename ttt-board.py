@@ -1,19 +1,25 @@
+"""
+Implementation of a tictactoe board. One novelty (following an idea used for Go
+boards) is to use 'TStrings' which represent horizontally, vertically or
+diagonally connected stones of each player.
+Main reference for Go boards: 'Deep learning and Game of Go'.
+"""
 
 import enum
 from collections import namedtuple
 
 class Player(enum.Enum):
-    black = 1 
+    black = 1
     white = 2
 
-    @property 
+    @property
     def other(self):
         return Player.black if self == Player.white else Player.white
 
 
 class Point(namedtuple('Point', 'row col')):
     def neighbors(self):
-        return[ 
+        return[
             Point(self.row - 1, self.col),
             Point(self.row, self.col - 1),
             Point(self.row + 1, self.col),
@@ -26,15 +32,17 @@ class Point(namedtuple('Point', 'row col')):
 
 
 class TString():
-    '''a TString (standing for tictactoe-string) is the collection of
-       diagonally, horizontally or vertically connected stones of one player'''
+    '''
+    a TString (standing for tictactoe-string) is the collection of
+    diagonally, horizontally or vertically connected stones of one player
+    '''
     def __init__(self, color, stones, liberties, orientation):
         # TODO: add the orientation, i.e. horizontal, of a t_string?
         # i think this would make it easier to merge t_strings correctly
         self.color = color
         self.stones = set(stones)
         # TODO: do we need liberties of single points as well?
-        # at least not for the game mechanic but i wonder about a neural network 
+        # at least not for the game mechanic but i wonder about a neural network
         # so that it can "see" the liberties of a single stone (to start a longer t_string)
         self.liberties = set(liberties)
         self.orientation = orientation
@@ -44,12 +52,12 @@ class TString():
 
     def merged_with(self, t_string):
         assert t_string.color == self.color
-        assert t_string.orientation == self.orientation 
+        assert t_string.orientation == self.orientation
         combined_stones = self.stones | t_string.stones
         return TString(
-            self.color, 
-            combined_stones, 
-            (self.liberties | t_string.liberties) - combined_stones, 
+            self.color,
+            combined_stones,
+            (self.liberties | t_string.liberties) - combined_stones,
             orientation)
 
 
@@ -78,23 +86,16 @@ class TBoard():
     def get(self, point):
         '''get the color of the point'''
         string = self._grid.get(point)
-        if string is None: 
+        if string is None:
             return None
         return string.color
 
     def get_t_strings(self, point):
         t_strings_dict = self._grid.get(point)
-        if string is None: 
+        if string is None:
             return None
         return t_strings_dict
 
 
-
-class TGameState():
-
-
-
-
-
-
-
+# NEXT:
+# class TGameState():
